@@ -1,0 +1,52 @@
+{
+  "clusters": [
+    {
+      "id": "gke_dview-gc_asia-south1-b_dview-gke-prod-cluster-01",
+      "name": "Production GKE Cluster",
+      "kubeconfigFile": "gke_dview-gc_asia-south1-b_dview-gke-prod-cluster-01.yaml",
+      "argocd": {
+        "url": "",
+        "token": ""
+      }
+    },
+    {
+      "id": "gke_dview-gc_asia-south1-b_test-ui",
+      "name": "Test UI Cluster",
+      "kubeconfigFile": "test-ui.yaml",
+      "argocd": {
+        "url": "https://localhost:8080/",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcmdvY2QiLCJzdWIiOiJhZG1pbjphcGlLZXkiLCJuYmYiOjE3NzYwOTMwMjksImlhdCI6MTc3NjA5MzAyOSwianRpIjoiNWE0NjZlNWYtNzc5My00NDBkLWI4YjItNjk5ZGM2MDNkNzJmIn0.0FRivnJyuo4FPVd6wHFblNlV9gIFUA_Q3cyOj87Zq_E"
+      }
+    },
+    {
+      "id": "gke_dview-gc_asia-south1-b_argocd-ui",
+      "name": "ArgoCD UI Cluster",
+      "kubeconfigFile": "argocd-ui.yaml",
+      "argocd": {
+        "url": "https:/localhost:8081/",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcmdvY2QiLCJzdWIiOiJhZG1pbjphcGlLZXkiLCJuYmYiOjE3NzU2NDk1NTQsImlhdCI6MTc3NTY0OTU1NCwianRpIjoiYzIxZTRiMDEtYjQ4Yy00YzM5LWFkYTktMzAzMjhmMzU1YmU0In0.YNWBerGip9d2EKB2uRqg9RzGmfs6b86ZBPRQ7yCiM1c"
+      }
+    },
+    {
+      "id": "test-ui",
+      "name": "Test UI Cluster (Legacy)",
+      "kubeconfigFile": "test-ui.yaml",
+      "argocd": {
+        "url": "https://argocd.dview.io",
+        "token": "your-test-cluster-argocd-token-here"
+      }
+    },
+    {
+      "id": "gke_dview-gc_asia-south1-b_xyz",
+      "name": "xyz Cluster",
+      "kubeconfigFile": "kubeconfig--1--yaml.yaml",
+      "context": "gke_dview-gc_asia-south1-b_xyz",
+      "cloudProvider": "gke",
+      "zone": "dview-gc_asia-south1-b",
+      "argocd": {
+        "url": "https://localhost:8080/",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcmdvY2QiLCJzdWIiOiJhZG1pbjphcGlLZXkiLCJuYmYiOjE3NzYwODAzNDYsImlhdCI6MTc3NjA4MDM0NiwianRpIjoiOGUyYjA5ZWItMDkwYS00ZDQwLWIyOGYtNTU3ZmMxOGQzMTc5In0.DjGIi93U2ydbG_G_aOwVn-nTwWP4LkqwppfOBfMmIFo"
+      }
+    }
+  ]
+}

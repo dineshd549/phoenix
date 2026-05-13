@@ -1,0 +1,33 @@
+# Base values for Kubernetes deployments
+deploy:
+  mysql: false
+  hive: false
+  redis: false
+  kafka: false
+  trino: false
+  apollo: false
+  cerebrum: false
+  artemis: false
+  dex: false
+  mirage: false
+  cosmos: false
+  trinity: false
+  dsense: false
+  rangeradmin: false
+  gitsync: false
+  cortex: false
+  jobviewer: false
+
+# Global configuration
+global:
+  namespace: "default"
+
+# Common service settings
+service:
+  type: ClusterIP
+  port: 80
+
+# Persistence settings
+persistence:
+  enabled: true
+  storageClass: "standard"

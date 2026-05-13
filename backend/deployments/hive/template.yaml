@@ -1,0 +1,417 @@
+---
+# Source: orion/templates/config/config-envs.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: fiber
+data:
+  # Common Database Details Should be used Across All Services
+  "ADMIN_USERNAME": "YWRtaW4="
+  "AIRFLOW_PASSWORD": "YWRtaW4="
+  "AIRFLOW_USERNAME": "YWRtaW4="
+  "APOLLO_AES_KEY": "NTYxZDgyMTYtMThjMC00YzNhLTgwZjUtOGUyZDI2NDE3MWJh"
+  "APOLLO_AES_SALT": "OWU3YmRiNGQtYTY0MS00M2MxLWI0ZTUtY2M0YTkxN2I1Nzg0"
+  "APOLLO_API_KEY_ALGORITHM": "SG1hY1NIQTI1Ng=="
+  "APOLLO_API_KEY_SECRET": "YXBvbGxvQXBpS2V5Rm9yRGZpYmVy"
+  "APOLLO_BCC_EMAILS": "a2F1dHNAZHZpZXcuaW8sc3VwcmF0aWtAZHZpZXcuaW8="
+  "APOLLO_COOKIE_DOMAIN": "ZHZpZXcuaW8="
+  "APOLLO_COOKIE_MAX_AGE": "OTAwMA=="
+  "APOLLO_COOKIE_PATH": "Lw=="
+  "APOLLO_DB": "WVhCdmJHeHY="
+  "APOLLO_DEMO_CREDENTIALS_EMAIL_PASSWORD": "ZGVtb0AxMjM="
+  "APOLLO_DEMO_CREDENTIALS_EMAIL_SUBJECT": "RGVtbyBDcmVkZW50aWFscyB8IER2aWV3"
+  "APOLLO_DEMO_CREDENTIALS_EMAIL_USERNAME": "ZGVtb0Bkdmlldy5pbw=="
+  "APOLLO_DOMAIN": "aHR0cHM6Ly9hcG9sbG8uZHZpZXcuaW8="
+  "APOLLO_EMAIL_VERIFICATION_SENDER": "dGVzdEBkdmlldy5pbw=="
+  "APOLLO_EMAIL_VERIFICATION_SENDER_PASSWORD": "YXNoZ2Nk"
+  "APOLLO_EMAIL_VERIFICATION_SUBJECT": "UmVnaXN0cmF0aW9uIENvbmZpcm1hdGlvbiB8IER2aWV3"
+  "APOLLO_ENABLE_AUTH_CHECK": "dHJ1ZQ=="
+  "APOLLO_ENABLE_EMAIL": "dHJ1ZQ=="
+  "APOLLO_ENABLE_RANGER": "dHJ1ZQ=="
+  "APOLLO_INTERNAL_DOMAIN": "aHR0cDovL2Fwb2xsbzo4MA=="
+  "APOLLO_METASTORE_URL": "aHR0cHM6Ly9hcG9sbG86NDQz"
+  "APOLLO_MYSQL_APOLLO_HOST": "amRiYzpteXNxbDovL215c3FsLmRldm9wcy5zdmMuY2x1c3Rlci5sb2NhbDozMzA2L2FwcGRiP3VzZVNTTD1mYWxzZSZhbGxvd1B1YmxpY0tleVJldHJpZXZhbD10cnVlIA=="
+  "APOLLO_MYSQL_PWD": "cm9vdA=="
+  "APOLLO_MYSQL_USR": "cm9vdA=="
+  "APOLLO_OAUTH_CLIENT_ID": "cGxhY2Vob2xkZXI="
+  "APOLLO_OAUTH_CLIENT_SECRET": "cGxhY2Vob2xkZXI="
+  "APOLLO_OAUTH_REDIRECT_URI": "cGxhY2Vob2xkZXI="
+  "APOLLO_OAUTH_TOKEN_URI": "aHR0cDovL2RleC9kZXgvdG9rZW4="
+  "APOLLO_PASS_RECOVERY_SENDER": "YXNk"
+  "APOLLO_PASS_RECOVERY_SENDER_PASSWORD": "YXNk"
+  "APOLLO_PASS_RECOVERY_SUBJECT": "UGFzc3dvcmQgUmVzZXQgTGluayB8IER2aWV3"
+  "APOLLO_RANGER_ADMIN_PASSWORD": "cmFuZ2VyUjBja3Mh"
+  "APOLLO_RANGER_ADMIN_USER": "YWRtaW4="
+  "APOLLO_RANGER_BASE_URL": "aHR0cHM6Ly9yYW5nZXIuZHZpZXcuaW8="
+  "APOLLO_REDIS_URL": "cmVkaXM6Ly86TEk5UlZvbGx1OUByZWRpcy1tYXN0ZXIuZGV2b3BzLnN2Yy5jbHVzdGVyLmxvY2FsOjYzNzk="
+  "APOLLO_SERVICE_NAME": "YXBvbGxv"
+  "APOLLO_UI_DOMAIN": "Y2xvdWQuZHZpZXcuaW8="
+  "APOLLO_USER_COOKIE": "dG9rZW49"
+  "APP_CONFIG_FILE_PATH": "L2V0Yy9jb3J0ZXgvY29uZmlnL2NvcnRleC55YW1s"
+  "ARTEMIS_APOLLO_DB": "YXBvbGxv"
+  "ARTEMIS_APOLLO_DOMAIN": "aHR0cHM6Ly9hcG9sbG8uZHZpZXcuaW8="
+  "ARTEMIS_APOLLO_ENABLE_AUTH_CHECK": "ZmFsc2U="
+  "ARTEMIS_APOLLO_INTERNAL_DOMAIN": "aHR0cDovL2Fwb2xsbzo4MA=="
+  "ARTEMIS_ARGO_BASE_URL": "aHR0cHM6Ly9hcmdvY2QuZHZpZXcuaW8="
+  "ARTEMIS_ARGO_PASSWORD": "REB0YSEyMzQ1Ng=="
+  "ARTEMIS_ARGO_USER": "YWRtaW4="
+  "ARTEMIS_BLS_DB": "Y29tcGFueV9kYXRhLHBlcmZvcm1hbmNlX3NjaGVtYSxtZXRhc3RvcmUsaW5mb3JtYXRpb25fc2NoZW1hLHN5cyxteXNxbCxtYXgsbWF4d2VsbCxtYXh3ZWxsX25ldyxheG9uX21ldGFzdG9yZSxkcm9wd2l6YXJkX2Jsb2cscG9zdGdyZXMsdGVtcGxhdGUwLHRlbXBsYXRlMSxtZXRhYmFzZSxoaXZlM21yMyxhcnRlbWlzLGRleCxoZWFsdGgsYXBvbGxvLGFwb2xsb19kZXYsYXJ0ZW1pc19kZXYsY29zdF9kYXRhLGRiX2hlYWx0aF9jaGVja3MsZHFhYXMsZHFhYXNfZGV2LGRzZW5zZSxkdmlld191aSxlaXJlbmUsZmx5d2F5X2RlbW8sZm9ydHJlc3MsbWV0YWJhc2UtZWNvbWJvb2tzLG1ldGFiYXNlLW1seW1waXgscmFuZ2VyLHJhbmdlcjEsY29zbW9zX2Rldixjb3Ntb3MsbG9jYWwsY29uZmlnLGFkbWlu"
+  "ARTEMIS_COOKIE": "ZHVtbXlfY29va2ll"
+  "ARTEMIS_DEPLOY_FIBER": "ZmFsc2U="
+  "ARTEMIS_DEPLOY_NAMESPACE": "ZHZpZXc="
+  "ARTEMIS_DOMAIN": "aHR0cHM6Ly9hcnRlbWlzLmR2aWV3Lmlv"
+  "ARTEMIS_FILE_NAME": "dmFsdWVzLnlhbWw="
+  "ARTEMIS_KAFKA_BROKERS_PROD": "a2Fma2E6OTA5Mg=="
+  "ARTEMIS_KAFKA_ENDPOINT_WITH_PORT": "a2Fma2EuZGV2b3BzLnN2Yy5jbHVzdGVyLmxvY2FsOjkwOTI="
+  "ARTEMIS_KAFKA_SECURITY_PROTOCOL": "UExBSU5URVhU"
+  "ARTEMIS_KUBERNETES_SERVER": "aHR0cHM6Ly9rdWJlcm5ldGVzLmRlZmF1bHQuc3Zj"
+  "ARTEMIS_METASTORE_URL": "aHR0cHM6Ly9hcnRlbWlzOjQ0Mw=="
+  "ARTEMIS_MYSQL_FORTRESS_HOST_URL": "amRiYzpteXNxbDovL215c3FsLmRldm9wcy5zdmMuY2x1c3Rlci5sb2NhbDozMzA2L2ZvcnRyZXNzP3VzZVNTTD1mYWxzZSZhdXRvUmVjb25uZWN0PXRydWUmYWxsb3dQdWJsaWNLZXlSZXRyaWV2YWw9dHJ1ZQ=="
+  "ARTEMIS_MYSQL_HOST_ARTEMIS": "amRiYzpteXNxbDovL215c3FsLmRldm9wcy5zdmMuY2x1c3Rlci5sb2NhbDozMzA2L2FydGVtaXM/dXNlU1NMPWZhbHNlJnNlc3Npb25WYXJpYWJsZXM9dHJhbnNhY3Rpb25faXNvbGF0aW9uPSdTRVJJQUxJWkFCTEUnJmFsbG93UHVibGljS2V5UmV0cmlldmFsPXRydWU="
+  "ARTEMIS_MYSQL_PWD": "cm9vdA=="
+  "ARTEMIS_MYSQL_USR": "cm9vdA=="
+  "ARTEMIS_OVERRIDE_ORG_NAME": "ZHZpZXctZGVzdGluYXRpb24="
+  "ARTEMIS_REDIS_HOST": "cmVkaXMtbWFzdGVyLmRldm9wcy5zdmMuY2x1c3Rlci5sb2NhbA=="
+  "ARTEMIS_REDIS_PASSWORD": "TEk5UlZvbGx1OQ=="
+  "ARTEMIS_REPO_NAME": "azgtZGVwbG95bWVudA=="
+  "ARTEMIS_S3_BASE_PATH": "czNhOi8vZHZpZXctbnJ0L3Rlc3Rpbmcv"
+  "ARTEMIS_S3_REGION": "YXAtc291dGgtMQ=="
+  "ARTEMIS_SCHEMA_REPO_NAME": "ZHAtZmxvdw=="
+  "ARTEMIS_SERVICE_NAME": "YXJ0ZW1pcw=="
+  "ARTEMIS_SOURCE_ORG": "ZHZpZXctaW8="
+  "ARTEMIS_SSL_TYPE": "UExBSU5URVhU"
+  "ARTEMIS_STREAM_FILE_PATH": "cHJvZC9zdHJlYW1fc2NoZW1hcw=="
+  "ARTEMIS_TOKEN": "Z2hwX2lHZWNPeFFtZXd4dWRiVkhLbTc2bWMzSFZhYkF4ajJJYmJodQ=="
+  "ARTEMIS_USER_NAME": "YnVudHlkdmlldw=="
+  "ARTEMIS_ZOOKEEPER_PROD": "a2Fma2Etem9va2VlcGVyLmRlZmF1bHQuc3ZjLmNsdXN0ZXIubG9jYWw6MjE4MQ=="
+  "ARTEMIS_ZOOKEEPER_STAGE": "a2Fma2Etem9va2VlcGVyLmRlZmF1bHQuc3ZjLmNsdXN0ZXIubG9jYWw6MjE4MQ=="
+  "CORTEX_ENDPOINT": "aHR0cDovL2xvY2FsaG9zdDo4MDgw"
+  "CORTEX_PORT": "ODA4MA=="
+  "CORTEX_SQLALCHEMY_DATABASE_URI": "bXlzcWwrcHlteXNxbDovL3Jvb3Q6cm9vdEBteXNxbC5kZXZvcHMuc3ZjLmNsdXN0ZXIubG9jYWw6MzMwNi9hcHBkYg=="
+  "CORTEX_UPLOAD_TEMP_PATH": "L29wdC9jb3J0ZXgvdXBsb2Fkcw=="
+  "DEX_DB": "ZGV4"
+  "DEX_DOMAIN": "aHR0cHM6Ly9kZXguZHZpZXcuaW8="
+  "DEX_ISSUER": "aHR0cHM6Ly9kZXguZHZpZXcuaW8vZGV4"
+  "DEX_REDIRECT_URI": "aHR0cHM6Ly9kZXguZHZpZXcuaW8vZGV4L2NhbGxiYWNr"
+  "DEX_WEB_HTTP": "MC4wLjAuMDo1NTU2"
+  "DSENSE_ENV": "cHJvZA=="
+  "DSENSE_PORT": "NTAwMA=="
+  "DSENSE_URL": "aHR0cHM6Ly9kc2Vuc2U6NDQz"
+  "FINE_TUNING_DIR": "e3suVmFsdWVzLnNlcnZpY2UuY29ydGV4LnB2Yy5tb3VudFBhdGh9fS9maW5lX3R1bmluZw=="
+  "GITHUB_REPO_NAME": "ZHAtZmxvdw=="
+  "GITHUB_TOKEN": "Z2hwX2lHZWNPeFFtZXd4dWRiVkhLbTc2bWMzSFZhYkF4ajJJYmJodQ=="
+  "GITHUB_USERNAME": "a2F1dHM="
+  "GITSYNC_PERIOD": "MTA="
+  "GITSYNC_VERBOSE": "MQ=="
+  "GIT_SYNC_BRANCH": "bWFzdGVy"
+  "GIT_SYNC_DEST": "cmVwbw=="
+  "GIT_SYNC_LINK": "cmVwbw=="
+  "GIT_SYNC_REPO": "aHR0cHM6Ly9rYXV0c2h1a2xhOmdocF9pR2VjT3hRbWV3eHVkYlZIS203Nm1jM0hWYWJBeGoySWJiaHVAZ2l0aHViLmNvbS9kdmlldy1pby9kcC1mbG93LmdpdA=="
+  "GIT_SYNC_ROOT": "L21udC9kYXRh"
+  "INIT_RESULT_DIR": "L2V0Yy9jb3J0ZXgvaW5pdA=="
+  "JOBWEAVER_APOLLO_BASE_URL": "aHR0cHM6Ly9hcG9sbG8uZHZpZXcuaW8="
+  "JOBWEAVER_DBT_ARTIFACTS": "L3RtcC9kYnRfYXJ0aWZhY3Rz"
+  "JOBWEAVER_DBT_DOCS_DBT_PROJECT_DIR": "L21vZGVsaW5n"
+  "JOBWEAVER_DBT_DOCS_GENERATE_PERIOD": "MzAw"
+  "JOBWEAVER_DBT_DOCS_LOG_DIR": "L3RtcC9kYnRfZG9jcw=="
+  "JOBWEAVER_DBT_DOCS_PROFILE_DIR": "L3Byb2ZpbGU="
+  "JOBWEAVER_DBT_MAX_CONCURRENT_TESTS": "NQ=="
+  "JOBWEAVER_DBT_TEST_TIMEOUT": "NjAw"
+  "JOBWEAVER_DBT_UI_BASE_URL": "aHR0cHM6Ly9kYnRkb2NzLmR2aWV3Lmlv"
+  "JOBWEAVER_ENV": "cHJvZHVjdGlvbg=="
+  "JOBWEAVER_GITHUB_API_URL": "aHR0cHM6Ly9hcGkuZ2l0aHViLmNvbS8="
+  "JOBWEAVER_GIT_SYNC_ADMIN_ACCESSIBLE_FILES": "LnltbCwucHk="
+  "JOBWEAVER_GIT_SYNC_BINARY_FILE_MAX_PREVIEW": "MTAw"
+  "JOBWEAVER_GIT_SYNC_BRANCH": "bWFpbg=="
+  "JOBWEAVER_GIT_SYNC_MAX_FILE_SIZE": "MTA0ODU3Ng=="
+  "JOBWEAVER_GIT_SYNC_REPO_PATH": "L21udC9kYXRh"
+  "JOBWEAVER_GIT_SYNC_WAIT_TIME": "Ng=="
+  "JOBWEAVER_REDIS_HOST": "cmVkaXM="
+  "JOBWEAVER_SERVICE_HOST": "am9id2VhdmVyLmR2aWV3Lmlv"
+  "KAFKA_CFG_ADVERTISED_LISTENERS": "UExBSU5URVhUOi8va2Fma2EtMC5rYWZrYS5kZXZvcHMuc3ZjLmNsdXN0ZXIubG9jYWw6OTA5Mg=="
+  "KAFKA_CFG_CONTROLLER_LISTENER_NAMES": "Q09OVFJPTExFUg=="
+  "KAFKA_CFG_CONTROLLER_QUORUM_VOTERS": "MEBrYWZrYS0wLmthZmthLmRldm9wcy5zdmMuY2x1c3Rlci5sb2NhbDo5MDkz"
+  "KAFKA_CFG_INTER_BROKER_LISTENER_NAME": "UExBSU5URVhU"
+  "KAFKA_CFG_LISTENERS": "UExBSU5URVhUOi8vOjkwOTIsQ09OVFJPTExFUjovLzo5MDkz"
+  "KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP": "UExBSU5URVhUOlBMQUlOVEVYVCxDT05UUk9MTEVSOlBMQUlOVEVYVA=="
+  "KAFKA_CFG_NODE_ID": "MA=="
+  "KAFKA_CFG_PROCESS_ROLES": "YnJva2VyLGNvbnRyb2xsZXI="
+  "KAFKA_ENABLE_KRAFT": "eWVz"
+  "KAFKA_LOG_DIRS": "L2JpdG5hbWkva2Fma2EvZGF0YQ=="
+  "METASTORE_URL": "dGhyaWZ0Oi8vaGl2ZS1tZXRhc3RvcmUuZGV2b3BzLnN2Yy5jbHVzdGVyLmxvY2FsOjkwODM="
+  "MYSQL_DATABASE": "YXBwZGI="
+  "MYSQL_DB_HOST": "bXlzcWwuZGV2b3BzLnN2Yy5jbHVzdGVyLmxvY2Fs"
+  "MYSQL_HOST": "bXlzcWwuZGV2b3BzLnN2Yy5jbHVzdGVyLmxvY2Fs"
+  "MYSQL_PORT": "MzMwNg=="
+  "MYSQL_PWD": "cm9vdA=="
+  "MYSQL_ROOT_PASSWORD": "cm9vdA=="
+  "MYSQL_USR": "cm9vdA=="
+  "OAUTH_CLIENT_ID": "MjQxMDk2NDUyNTcwLWQxaGU4c2xya2RnOW04cDNoYWVkOTdrdTY2YzBsbHFiLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29t"
+  "OAUTH_CLIENT_SECRET": "R09DU1BYLVVoVldvS2JUUm10a2lqcElFSVZDeTRHNFVNZGE="
+  "OPENAI_API_KEY": "dmFsdWU="
+  "POLICY_MANAGER_URL": "aHR0cDovL2xvY2FsaG9zdDo2MDgw"
+  "PROJECT_DIR": "L21vZGVsaW5n"
+  "PROMETHEUS_MULTIPROC_DIR": "L3RtcC9wcm9tZXRoZXVz"
+  "RANGER_ADMIN_PASSWORD": "cmFuZ2VyUm9ja3Mh"
+  "RANGER_CONFIG_PATH": "L21udC9yYW5nZXIv"
+  "RANGER_DB_HOST": "amRiYzpteXNxbDovL215c3FsOjMzMDYvcmFuZ2Vy"
+  "RANGER_DB_PASSWORD": "cm9vdA=="
+  "RANGER_DB_USER": "cmFuZ2VyYWRtaW4="
+  "RAZORPAY_ID": "eA=="
+  "RAZORPAY_SECRET": "eA=="
+  "REACT_APP_APOLLO_DOMAIN": "aHR0cHM6Ly9hcG9sbG8uZHZpZXcuaW8="
+  "REACT_APP_ARTEMIS_DOMAIN": "aHR0cHM6Ly9hcnRlbWlzLmR2aWV3Lmlv"
+  "REACT_APP_DEX_DOMAIN": "aHR0cHM6Ly9kZXguZHZpZXcuaW8="
+  "REACT_APP_EIRENE_DOMAIN": "aHR0cHM6Ly9laXJlbmUuZHZpZXcuaW8="
+  "REACT_APP_OAUTH_CLIENT_ID": "MjQxMDk2NDUyNTcwLWQxaGU4c2xya2RnOW04cDNoYWVkOTdrdTY2YzBsbHFiLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29t"
+  "REACT_APP_TRINITY_DOMAIN": "aHR0cHM6Ly90cmluaXR5LmR2aWV3Lmlv"
+  "REACT_APP_UI_DOMAIN": "aHR0cHM6Ly9jbG91ZC5kdmlldy5pbw=="
+  "REDIS_AUTH_ENABLED": "dHJ1ZQ=="
+  "REDIS_DB": "MA=="
+  "REDIS_HOST": "cmVkaXM="
+  "REDIS_PASSWORD": "TEk5UlZvbGx1OQ=="
+  "REDIS_PORT": "ODA="
+  "REDIS_USERNAME": "YWRtaW4="
+  "SCRATCH_DIR": "L3RtcC9hLWZvbGRlci10aGF0LXRoZS1jdXJyZW50LXVzZXItaGFzLXBlcm1pc3Npb24tdG8td3JpdGUtaW4="
+  "SERVICE_NAME": "ZGV4"
+  "SPARK_MASTER": "bG9jYWxbKl0="
+  "SPRING_DATASOURCE_PASSWORD": "cm9vdA=="
+  "SPRING_DATASOURCE_URL": "amRiYzpteXNxbDovL215c3FsLmRldm9wcy5zdmMuY2x1c3Rlci5sb2NhbDozMzA2L2FwcGRiP3VzZVNTTD1mYWxzZSZhbGxvd1B1YmxpY0tleVJldHJpZXZhbD10cnVl"
+  "SPRING_DATASOURCE_USERNAME": "cm9vdA=="
+  "SQLALCHEMY_DATABASE_URL": "bXlzcWwrcHlteXNxbDovL3Jvb3Q6cm9vdEBteXNxbC5kZXZvcHMuc3ZjLmNsdXN0ZXIubG9jYWw6MzMwNi9hcHBkYg=="
+  "TEST_RESULT_DIR": "L2V0Yy9jb3J0ZXgvdGVzdGluZw=="
+  "TRINITY_ADHOC_CONNECTION_STRING": "amRiYzpoaXZlMjovL2hpdmUtbWV0YXN0b3JlLmRldm9wcy5zdmMuY2x1c3Rlci5sb2NhbDo4MC8lcw=="
+  "TRINITY_APOLLO_ENABLE_AUTH_CHECK": "ZmFsc2U="
+  "TRINITY_QUERY_TIMEOUT": "MTgw"
+  "TRINITY_RESULT_LIMIT": "MTAwMDAw"
+  "TRINITY_SMS_CONNECTION_STRING": "amRiYzp0cmlubzovL3RyaW5vLmRldm9wcy5zdmMuY2x1c3Rlci5sb2NhbDo4MDgwLyVzJXM="
+  "TRINITY_URL": "aHR0cHM6Ly90cmluaXR5OjQ0Mw=="
+  "TRINITY_USE_SSL": "ZmFsc2U="
+  "TRINO_CATALOG": "YWRob2M="
+  "TRINO_CONFIG_PATH": "L2V0Yy90cmlubw=="
+  "TRINO_EXPLORATORY_CATALOG": "YWRob2M="
+  "TRINO_HOST": "dHJpbm8="
+  "TRINO_MOUNT_CONFIG_PATH": "L21udC9ldGMvdHJpbm8="
+  "TRINO_PORT": "ODA="
+  "TRINO_SCHEMA": "ZGF0YXNldHM="
+  "TRINO_USERNAME": "YWRtaW4="
+  "UI_DOMAIN": "Y2xvdWQuZHZpZXcuaW8="
+  "UPLOAD_TEMP_DIR": "e3suVmFsdWVzLnNlcnZpY2UuY29ydGV4LnB2Yy5tb3VudFBhdGh9fS91cGxvYWRz"
+  "VLLM_URL": "eA=="
+---
+# Source: orion/templates/config/hive-config.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hive-config
+data:
+  hive-site.xml: |
+    <?xml version="1.0"?>
+    <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+    <configuration>
+      <property>
+        <name>hive_metastore_uris</name>
+        <value>thrift://hive-metastore:9083</value>
+      </property>
+      <property>
+        <name>metastore_uris</name>
+        <value>thrift://hive-metastore:9083</value>
+      </property>
+      <property>
+        <name>javax.jdo.option.ConnectionURL</name>
+        <value>jdbc:mysql://mysql:3306/metastore?createDatabaseIfNotExist=true</value>
+      </property>
+      <property>
+        <name>javax.jdo.option.ConnectionDriverName</name>
+        <value>com.mysql.cj.jdbc.Driver</value>
+      </property>
+      <property>
+        <name>javax.jdo.option.ConnectionUserName</name>
+        <value>root</value>
+      </property>
+      <property>
+        <name> javax.jdo.option.ConnectionPassword</name>
+        <value>root</value>
+      </property>    
+      <property>
+        <name>hive.metastore.warehouse.dir</name>
+        <value>gs://dp-dview/aqua/warehouse</value>
+      </property> 
+      <property>
+        <name>fs.gs.impl</name>
+        <value>com.google.cloud.hadoop.fs.gcs.GoogleHadoopFileSystem</value>
+      </property>
+      <property>
+        <name>fs.AbstractFileSystem.gs.impl</name>
+        <value>com.google.cloud.hadoop.fs.gcs.GoogleHadoopFS</value>
+      </property>
+      <property>
+        <name>fs.gs.auth.type</name>
+        <value>APPLICATION_DEFAULT</value>
+      </property>
+      <property>
+        <name>fs.gs.reported.permissions</name>
+        <value>777</value>
+      </property>
+      <property>
+        <name>fs.gs.project.id</name>
+        <value>dview-gc</value>
+      </property>
+    </configuration>
+---
+# Source: orion/templates/network/connectivity/hive-svc.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: hive-metastore
+  labels:
+    app.kubernetes.io/name: hive-metastore
+    app.kubernetes.io/component: hive-metastore
+spec:
+  ports:
+    - name: thrift
+      port: 9083
+      protocol: TCP
+      targetPort: 9083
+  selector:
+    app.kubernetes.io/name: hive-metastore
+    app.kubernetes.io/component: hive-metastore
+    app.kubernetes.io/instance: "hive"
+  type: ClusterIP
+  sessionAffinity: None
+  ipFamilies:
+    - IPv4
+  ipFamilyPolicy: SingleStack
+  internalTrafficPolicy: Cluster
+---
+# Source: orion/templates/service/hive3.yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: hive-metastore
+  labels:
+    app.kubernetes.io/name: hive-metastore
+    app.kubernetes.io/component: hive-metastore
+    app.kubernetes.io/instance: hive-metastore
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: hive-metastore
+      app.kubernetes.io/component: hive-metastore
+      app.kubernetes.io/instance: hive-metastore
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: hive-metastore
+        app.kubernetes.io/component: hive-metastore
+        app.kubernetes.io/instance: hive-metastore
+    spec:
+      nodeSelector:
+        roles: orion
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: roles
+                operator: In
+                values:
+                - orion
+      # initContainers:
+      #   - name: wait-for-mysql
+      #     image: mysql:8
+      #     env:
+      #       - name: MYSQL_ROOT_PASSWORD
+      #         valueFrom:
+      #           secretKeyRef:
+      #             name: fiber
+      #             key: METASTORE_PASSWORD 
+      #     command:
+      #       - sh
+      #       - -c
+      #       - |
+      #         until mysql -h mysql -u root -p$MYSQL_ROOT_PASSWORD -e "SELECT 1"; do
+      #           echo "waiting for mysql..."
+      #           sleep 2
+      #         done
+      #   - name: init-hive-schema
+      #     image: dview/hive3-mysql:v1.1.1
+      #     volumeMounts:
+      #       - name: hive-config
+      #         mountPath: /opt/hive/conf
+      #     command:
+      #       - sh
+      #       - -c
+      #       - |
+      #         echo "Checking Hive schema..."
+      #         /opt/hive/bin/schematool -dbType mysql -info || \
+      #             /opt/hive/bin/schematool -dbType mysql -initSchema
+
+
+      containers:
+        - name: metastore
+          image: dview/hive3-mysql:v1.1.1
+          imagePullPolicy: "Always"
+          command:
+            - "/bin/sh"
+            - "-c"
+            - "/opt/hive/bin/hive --service metastore"
+          resources:
+            limits:
+              memory: 6Gi
+            requests:
+              memory: 1Gi
+          volumeMounts:
+            - name: hive-config
+              mountPath: /opt/hive/conf
+      volumes:
+        - name: hive-config
+          configMap:
+            name: hive-config
+---
+# Source: orion/templates/service/helm-schema-job.yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: hive-schema-init
+  labels:
+    app.kubernetes.io/name: hive-schema-init
+  annotations:
+    #"helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+spec:
+  template:
+    spec:
+      nodeSelector:
+        roles: orion
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: roles
+                operator: In
+                values:
+                - orion
+
+      restartPolicy: OnFailure
+
+      containers:
+        - name: hive-schema-init
+          image: dview/hive3-mysql:v1.1.1
+          command:
+            - sh
+            - -c
+            - |
+              echo "Checking Hive schema..."
+              /opt/hive/bin/schematool -dbType mysql -info || \
+              /opt/hive/bin/schematool -dbType mysql -initSchema
+          volumeMounts:
+            - name: hive-config
+              mountPath: /opt/hive/conf
+
+      volumes:
+        - name: hive-config
+          configMap:
+            name: hive-config

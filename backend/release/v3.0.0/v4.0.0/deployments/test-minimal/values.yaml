@@ -1,0 +1,4 @@
+deploy: {}
+extraEnv:
+  - key: TEST_ENV
+    value: test_value

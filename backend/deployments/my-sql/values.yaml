@@ -1,0 +1,460 @@
+global:
+  tag: v1.1.1
+  imagePullPolicy: Always
+  secretName: fiber
+  nodeSelector:
+    roles: orion
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: roles
+                operator: In
+                values:
+                  - orion
+  tolerations: []
+  autoscaling:
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 1
+    averageMemoryUtilization: 70
+    averageCpuUtilization: 70
+  deployment:
+    replicas: 1
+    progressDeadlineSeconds: 600
+    revisionHistoryLimit: 10
+    strategy:
+      type: RollingUpdate
+      maxSurge: 25%
+      maxUnavailable: 25%
+persistence:
+  enabled: true
+  size: 10Gi
+  accessMode: ReadWriteOnce
+  cloudProvider: gcp
+  storageClass:
+    aws: gp2
+    gcp: premium-rwo
+    azure: default
+    baremetal: local-path
+deploy:
+  mysql: true
+  hive: false
+  redis: false
+  kafka: false
+  trino: false
+  apollo: false
+  cerebrum: false
+  artemis: false
+  dex: false
+  mirage: false
+  cosmos: false
+  trinity: false
+  dsense: false
+  rangeradmin: false
+  gitsync: false
+  cortex: false
+  jobviewer: false
+monitoring:
+  enabled: false
+service:
+  tag: v1.1.1
+  apollo:
+    image: dview/apollo
+    resources: {}
+    tag: v1.1.1
+  artemis:
+    image: dview/artemis
+    resources: {}
+    tag: v1.1.1
+  pyserve:
+    image: dview/pyserve
+    resources: {}
+  cerebrumApp:
+    image: dview/cerebrum
+    tag: v2.8.5-dev
+    resources: {}
+  cerebrumWorkers:
+    image: dview/cerebrum
+    tag: v2.8.5-dev
+    resources: {}
+  cortex:
+    pvc:
+      name: cortex-pvc
+      mountPath: /mnt/cortex
+    logging:
+      level: INFO
+      persist: true
+    app:
+      image: dview/cortex-app
+      tag: v3.2.3
+      resources:
+        limits:
+          cpu: 2000m
+          memory: 2048Mi
+        requests:
+          cpu: 1000m
+          memory: 1024Mi
+    worker:
+      image: dview/cortex-worker
+      tag: v3.2.3
+      count: 3
+      resources: {}
+    default_user:
+      id: '1'
+      email: demo@dview.io
+      tenant: __dview__testing__
+      org: dview
+      role: ADMIN
+    blacklisted:
+      catalogs:
+        - jmx
+        - system
+        - tpch
+        - tpcds
+        - rds
+        - memory
+        - hive
+        - sds
+        - sms
+        - stream
+        - sense
+      schemas:
+        - catalog: '*'
+          schema: information_schema
+        - catalog: sds
+          schema: exploratory
+        - catalog: sds
+          schema: stateless_datasets
+        - catalog: adhoc
+          schema: stateless_datasets
+        - catalog: adhoc
+          schema: exploratory
+        - catalog: adhoc
+          schema: datasets
+        - catalog: adhoc
+          schema: __stateless__
+        - catalog: adhoc
+          schema: account
+        - catalog: adhoc
+          schema: analytics
+        - catalog: adhoc
+          schema: default
+        - catalog: adhoc
+          schema: stream
+        - catalog: adhoc
+          schema: marketing_reporting
+        - catalog: adhoc
+          schema: dview
+      tables:
+        - catalog: some_catalog
+          schema: some_schema
+          table: table_d{2}
+  dex:
+    image: ghcr.io/dexidp/dex:v2.37.0
+    resources: {}
+  mirage:
+    image: dview/mirage
+    resources: {}
+  postgres:
+    image: dview/postgres-kafka:v1.0.0
+    resources: {}
+  cosmos:
+    image: dview/cosmos
+    resources: {}
+  trinity:
+    image: dview/trinity
+    resources: {}
+  jobviewer:
+    image: dview/jobweaver
+    resources: {}
+    tag: v3.4.2
+    dbt:
+      pullPolicy: IfNotPresent
+      repository: dview/jobweaver-dbt
+      tag: v3.3.3
+      dbtUIBaseUrl: https://dbtdocs.dview.io
+      dbtProfileDir: /profile
+      dbtProjectDir: /modeling
+      lineagePort: 8080
+      dbtDocsLogDir: /tmp/dbt_docs
+      dbtArtifactsDir: /tmp/dbt_artifacts
+    apollo:
+      base_url: https://apollo.dview.io
+    airflow:
+      baseUrl: http://airflow-webserver:8080
+      host: https://airflow-dview.dview.io
+  gitSync:
+    repository: k8s.gcr.io/git-sync/git-sync
+    tag: v3.2.2
+    pullPolicy: IfNotPresent
+    volumeRepoPath: /mnt/data
+    volumeRepoDestPath: repo
+    sync_ssh_repo: x
+  dsense:
+    image: dview/dsense
+    tag: v0.0.19
+    resources: {}
+  rangeradmin:
+    image: dview/ranger-admin
+    tag: v1.0.0
+    resources: {}
+  redis:
+    image: redis
+    tag: 7.4.0
+  kafka:
+    image: dview/kafka
+    tag: 3.8.0-debian-12-r3
+    replicas: 1
+  hive:
+    image: dview/hive3-mysql
+    pullPolicy: IfNotPresent
+    resources: {}
+    conf:
+      hiveSite:
+        hive_metastore_uris: thrift://hive-metastore:9083
+        fs.s3a.access.key: x
+        fs.s3a.secret.key: x
+        hive.metastore.warehouse.dir: s3a://dview-nrt/aqua/warehouse
+        datanucleus.autoCreateSchema: true
+        metastore_uris: thrift://hive-metastore:9083
+  mysql:
+    image: mysql
+    tag: 8
+    resources: {}
+    host: mysql
+    port: 3306
+    user: root
+    password: root
+  trino:
+    workers: 1
+    replicas: 1
+    image: dview/trino
+    tag: 445
+    ranger:
+      enabled: 'true'
+      repository_name: trino
+      endpoint: http://ranger-admin:6080
+    additionalCatalogs:
+      adhoc: |
+        connector.name=hive
+        hive.metastore.uri=thrift://hive-metastore:9083
+        hive.orc.use-column-names=true
+        hive.parquet.use-column-names=true
+        hive.non-managed-table-writes-enabled=true
+        hive.non-managed-table-creates-enabled=true
+        # hive.allow-drop-table=true
+        # hive.allow-rename-table=true
+        hive.metastore.thrift.client.connect-timeout=30s
+        hive.metastore.thrift.client.read-timeout=30s
+        hive.metastore-cache-ttl=0s
+        # hive.metastore-timeout=300s
+        hive.recursive-directories=true
+        hive.ignore-absent-partitions=true
+        hive.s3.streaming.enabled=true
+        hive.metastore.thrift.delete-files-on-drop=true
+virtualService:
+  enabled: false
+envs:
+  APOLLO_API_KEY_ALGORITHM: HmacSHA256
+  APOLLO_API_KEY_SECRET: apolloApiKeyForDfiber
+  APOLLO_COOKIE_DOMAIN: dview.io
+  APOLLO_COOKIE_MAX_AGE: 9000
+  APOLLO_COOKIE_PATH: /
+  APOLLO_DB: YXBvbGxv
+  APOLLO_EMAIL_VERIFICATION_SENDER: test@dview.io
+  APOLLO_EMAIL_VERIFICATION_SENDER_PASSWORD: ashgcd
+  APOLLO_EMAIL_VERIFICATION_SUBJECT: Registration Confirmation | Dview
+  APOLLO_ENABLE_AUTH_CHECK: true
+  APOLLO_MYSQL_APOLLO_HOST: >-
+    jdbc:mysql://mysql.devops.svc.cluster.local:3306/appdb?useSSL=false&allowPublicKeyRetrieval=true 
+  APOLLO_MYSQL_PWD: root
+  APOLLO_MYSQL_USR: root
+  APOLLO_OAUTH_CLIENT_ID: placeholder
+  APOLLO_OAUTH_CLIENT_SECRET: placeholder
+  APOLLO_OAUTH_REDIRECT_URI: placeholder
+  APOLLO_OAUTH_TOKEN_URI: http://dex/dex/token
+  APOLLO_PASS_RECOVERY_SENDER: asd
+  APOLLO_PASS_RECOVERY_SENDER_PASSWORD: asd
+  APOLLO_PASS_RECOVERY_SUBJECT: Password Reset Link | Dview
+  APOLLO_REDIS_URL: redis://:LI9RVollu9@redis-master.devops.svc.cluster.local:6379
+  APOLLO_UI_DOMAIN: cloud.dview.io
+  APOLLO_USER_COOKIE: token=
+  APOLLO_ENABLE_EMAIL: 'true'
+  APOLLO_RANGER_ADMIN_PASSWORD: rangerR0cks!
+  APOLLO_RANGER_BASE_URL: https://ranger.dview.io
+  APOLLO_RANGER_ADMIN_USER: admin
+  APOLLO_ENABLE_RANGER: 'true'
+  APOLLO_BCC_EMAILS: kauts@dview.io,supratik@dview.io
+  APOLLO_DEMO_CREDENTIALS_EMAIL_SUBJECT: Demo Credentials | Dview
+  APOLLO_DEMO_CREDENTIALS_EMAIL_USERNAME: demo@dview.io
+  APOLLO_DEMO_CREDENTIALS_EMAIL_PASSWORD: demo@123
+  APOLLO_SERVICE_NAME: apollo
+  APOLLO_AES_KEY: 561d8216-18c0-4c3a-80f5-8e2d264171ba
+  APOLLO_AES_SALT: 9e7bdb4d-a641-43c1-b4e5-cc4a917b5784
+  AIRFLOW_PASSWORD: admin
+  AIRFLOW_USERNAME: admin
+  GITHUB_TOKEN: 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
+  GITHUB_USERNAME: kauts
+  GITHUB_REPO_NAME: dp-flow
+  GIT_SYNC_BRANCH: master
+  GIT_SYNC_ROOT: /mnt/data
+  GITSYNC_PERIOD: '10'
+  GITSYNC_VERBOSE: '1'
+  GIT_SYNC_DEST: repo
+  REDIS_PASSWORD: LI9RVollu9
+  GIT_SYNC_REPO: >-
+    https://kautshukla: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@github.com/dview-io/dp-flow.git
+  JOBWEAVER_ENV: production
+  JOBWEAVER_SERVICE_HOST: jobweaver.dview.io
+  JOBWEAVER_GIT_SYNC_BRANCH: main
+  JOBWEAVER_GIT_SYNC_MAX_FILE_SIZE: '1048576'
+  JOBWEAVER_GIT_SYNC_BINARY_FILE_MAX_PREVIEW: '100'
+  JOBWEAVER_GIT_SYNC_WAIT_TIME: '6'
+  JOBWEAVER_REDIS_HOST: redis
+  JOBWEAVER_DBT_UI_BASE_URL: https://dbtdocs.dview.io
+  JOBWEAVER_DBT_DOCS_GENERATE_PERIOD: '300'
+  JOBWEAVER_DBT_DOCS_PROFILE_DIR: /profile
+  JOBWEAVER_DBT_DOCS_DBT_PROJECT_DIR: /modeling
+  JOBWEAVER_DBT_MAX_CONCURRENT_TESTS: '5'
+  JOBWEAVER_DBT_TEST_TIMEOUT: '600'
+  JOBWEAVER_GIT_SYNC_REPO_PATH: /mnt/data
+  JOBWEAVER_GITHUB_API_URL: https://api.github.com/
+  JOBWEAVER_APOLLO_BASE_URL: https://apollo.dview.io
+  JOBWEAVER_GIT_SYNC_ADMIN_ACCESSIBLE_FILES: .yml,.py
+  JOBWEAVER_DBT_DOCS_LOG_DIR: /tmp/dbt_docs
+  JOBWEAVER_DBT_ARTIFACTS: /tmp/dbt_artifacts
+  PROJECT_DIR: /modeling
+  ADMIN_USERNAME: admin
+  POLICY_MANAGER_URL: http://localhost:6080
+  RANGER_ADMIN_PASSWORD: rangerRocks!
+  RANGER_DB_USER: rangeradmin
+  RANGER_DB_HOST: jdbc:mysql://mysql:3306/ranger
+  RANGER_DB_PASSWORD: root
+  ARTEMIS_APOLLO_DOMAIN: https://apollo.dview.io
+  ARTEMIS_SCHEMA_REPO_NAME: dp-flow
+  ARTEMIS_MYSQL_PWD: root
+  ARTEMIS_MYSQL_USR: root
+  ARTEMIS_MYSQL_HOST_ARTEMIS: >-
+    jdbc:mysql://mysql.devops.svc.cluster.local:3306/artemis?useSSL=false&sessionVariables=transaction_isolation='SERIALIZABLE'&allowPublicKeyRetrieval=true
+  ARTEMIS_REDIS_HOST: redis-master.devops.svc.cluster.local
+  ARTEMIS_REDIS_PASSWORD: LI9RVollu9
+  ARTEMIS_REPO_NAME: k8-deployment
+  ARTEMIS_COOKIE: dummy_cookie
+  ARTEMIS_TOKEN: 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
+  ARTEMIS_SOURCE_ORG: dview-io
+  ARTEMIS_USER_NAME: buntydview
+  ARTEMIS_FILE_NAME: values.yaml
+  ARTEMIS_KAFKA_ENDPOINT_WITH_PORT: kafka.devops.svc.cluster.local:9092
+  ARTEMIS_ZOOKEEPER_STAGE: kafka-zookeeper.default.svc.cluster.local:2181
+  ARTEMIS_ZOOKEEPER_PROD: kafka-zookeeper.default.svc.cluster.local:2181
+  ARTEMIS_OVERRIDE_ORG_NAME: dview-destination
+  ARTEMIS_ARGO_BASE_URL: https://argocd.dview.io
+  ARTEMIS_ARGO_USER: admin
+  ARTEMIS_ARGO_PASSWORD: D@ta!23456
+  ARTEMIS_KUBERNETES_SERVER: https://kubernetes.default.svc
+  ARTEMIS_APOLLO_INTERNAL_DOMAIN: http://apollo:80
+  ARTEMIS_MYSQL_FORTRESS_HOST_URL: >-
+    jdbc:mysql://mysql.devops.svc.cluster.local:3306/fortress?useSSL=false&autoReconnect=true&allowPublicKeyRetrieval=true
+  ARTEMIS_S3_BASE_PATH: s3a://dview-nrt/testing/
+  ARTEMIS_APOLLO_DB: apollo
+  ARTEMIS_SSL_TYPE: PLAINTEXT
+  ARTEMIS_KAFKA_SECURITY_PROTOCOL: PLAINTEXT
+  ARTEMIS_SERVICE_NAME: artemis
+  ARTEMIS_DEPLOY_NAMESPACE: dview
+  ARTEMIS_KAFKA_BROKERS_PROD: kafka:9092
+  ARTEMIS_APOLLO_ENABLE_AUTH_CHECK: 'false'
+  ARTEMIS_DEPLOY_FIBER: 'false'
+  ARTEMIS_STREAM_FILE_PATH: prod/stream_schemas
+  ARTEMIS_S3_REGION: ap-south-1
+  ARTEMIS_BLS_DB: >-
+    company_data,performance_schema,metastore,information_schema,sys,mysql,max,maxwell,maxwell_new,axon_metastore,dropwizard_blog,postgres,template0,template1,metabase,hive3mr3,artemis,dex,health,apollo,apollo_dev,artemis_dev,cost_data,db_health_checks,dqaas,dqaas_dev,dsense,dview_ui,eirene,flyway_demo,fortress,metabase-ecombooks,metabase-mlympix,ranger,ranger1,cosmos_dev,cosmos,local,config,admin
+  UI_DOMAIN: cloud.dview.io
+  ARTEMIS_DOMAIN: https://artemis.dview.io
+  APOLLO_DOMAIN: https://apollo.dview.io
+  DEX_DOMAIN: https://dex.dview.io
+  OAUTH_CLIENT_ID: 241096452570-d1he8slrkdg9m8p3haed97ku66c0llqb.apps.googleusercontent.com
+  REACT_APP_UI_DOMAIN: https://cloud.dview.io
+  REACT_APP_DEX_DOMAIN: https://dex.dview.io
+  REACT_APP_OAUTH_CLIENT_ID: 241096452570-d1he8slrkdg9m8p3haed97ku66c0llqb.apps.googleusercontent.com
+  REACT_APP_EIRENE_DOMAIN: https://eirene.dview.io
+  REACT_APP_TRINITY_DOMAIN: https://trinity.dview.io
+  REACT_APP_ARTEMIS_DOMAIN: https://artemis.dview.io
+  REACT_APP_APOLLO_DOMAIN: https://apollo.dview.io
+  OAUTH_CLIENT_SECRET: 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
+  DEX_REDIRECT_URI: https://dex.dview.io/dex/callback
+  DEX_WEB_HTTP: 0.0.0.0:5556
+  DEX_ISSUER: https://dex.dview.io/dex
+  SERVICE_NAME: dex
+  MYSQL_DB_HOST: mysql.devops.svc.cluster.local
+  DEX_DB: dex
+  MYSQL_PORT: '3306'
+trinity:
+  SPARK_MASTER: local[*]
+  SCRATCH_DIR: /tmp/a-folder-that-the-current-user-has-permission-to-write-in
+  MYSQL_PWD: root
+  MYSQL_USR: root
+  MYSQL_HOST: mysql.devops.svc.cluster.local
+  APOLLO_INTERNAL_DOMAIN: http://apollo:80
+  TRINITY_USE_SSL: 'false'
+  TRINITY_ADHOC_CONNECTION_STRING: jdbc:hive2://hive-metastore.devops.svc.cluster.local:80/%s
+  TRINITY_SMS_CONNECTION_STRING: jdbc:trino://trino.devops.svc.cluster.local:8080/%s%s
+  METASTORE_URL: thrift://hive-metastore.devops.svc.cluster.local:9083
+  TRINITY_APOLLO_ENABLE_AUTH_CHECK: 'false'
+  TRINITY_RESULT_LIMIT: '100000'
+  TRINITY_QUERY_TIMEOUT: '180'
+  REDIS_PASSWORD: LI9RVollu9
+  CORTEX_SQLALCHEMY_DATABASE_URI: mysql+pymysql://root:root@mysql.devops.svc.cluster.local:3306/appdb
+  APP_CONFIG_FILE_PATH: /etc/cortex/config/cortex.yaml
+  CORTEX_UPLOAD_TEMP_PATH: /opt/cortex/uploads
+  CORTEX_PORT: '8080'
+  UPLOAD_TEMP_DIR: '{{.Values.service.cortex.pvc.mountPath}}/uploads'
+  FINE_TUNING_DIR: '{{.Values.service.cortex.pvc.mountPath}}/fine_tuning'
+  TEST_RESULT_DIR: /etc/cortex/testing
+  INIT_RESULT_DIR: /etc/cortex/init
+  CORTEX_ENDPOINT: http://localhost:8080
+  SPRING_DATASOURCE_URL: >-
+    jdbc:mysql://mysql.devops.svc.cluster.local:3306/appdb?useSSL=false&allowPublicKeyRetrieval=true
+  SPRING_DATASOURCE_USERNAME: root
+  SPRING_DATASOURCE_PASSWORD: root
+  ARTEMIS_METASTORE_URL: https://artemis:443
+  APOLLO_METASTORE_URL: https://apollo:443
+  DSENSE_URL: https://dsense:443
+  VLLM_URL: x
+  TRINITY_URL: https://trinity:443
+  RAZORPAY_ID: x
+  RAZORPAY_SECRET: x
+dsense:
+  DSENSE_PORT: '5000'
+  DSENSE_ENV: prod
+  PROMETHEUS_MULTIPROC_DIR: /tmp/prometheus
+  OPENAI_API_KEY: value
+  TRINO_HOST: trino
+  TRINO_PORT: '80'
+  TRINO_USERNAME: admin
+  TRINO_CATALOG: adhoc
+  TRINO_SCHEMA: datasets
+  TRINO_EXPLORATORY_CATALOG: adhoc
+  REDIS_HOST: redis
+  REDIS_PORT: '80'
+  REDIS_DB: '0'
+  REDIS_AUTH_ENABLED: true
+  REDIS_USERNAME: admin
+  REDIS_PASSWORD: PASSWORD
+  SQLALCHEMY_DATABASE_URL: mysql+pymysql://root:root@mysql.devops.svc.cluster.local:3306/appdb
+  KAFKA_ENABLE_KRAFT: 'yes'
+  KAFKA_CFG_PROCESS_ROLES: broker,controller
+  KAFKA_CFG_NODE_ID: '0'
+  KAFKA_CFG_CONTROLLER_QUORUM_VOTERS: 0@kafka-0.kafka.devops.svc.cluster.local:9093
+  KAFKA_CFG_LISTENERS: PLAINTEXT://:9092,CONTROLLER://:9093
+  KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://kafka-0.kafka.devops.svc.cluster.local:9092
+  KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT
+  KAFKA_CFG_CONTROLLER_LISTENER_NAMES: CONTROLLER
+  KAFKA_CFG_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+  KAFKA_LOG_DIRS: /bitnami/kafka/data
+  MYSQL_ROOT_PASSWORD: root
+  MYSQL_DATABASE: appdb
+  RANGER_CONFIG_PATH: /mnt/ranger/
+  TRINO_MOUNT_CONFIG_PATH: /mnt/etc/trino
+  TRINO_CONFIG_PATH: /etc/trino
