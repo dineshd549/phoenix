@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Kubernetes Dashboard with ArgoCD Integration
 
 A comprehensive web application for managing Kubernetes clusters, deploying applications via ArgoCD GitOps, and configuring cluster-specific settings.
@@ -666,3 +667,7 @@ Enable debug logging by setting environment variable:
 ```bash
 export DEBUG=true
 python backend/main.py
+=======
+# phoenix
+Multi-UI deployment
+>>>>>>> b7f222e44773f183cb33c3d39cfcb83549e08066
